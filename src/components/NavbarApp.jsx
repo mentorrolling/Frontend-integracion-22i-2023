@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../css/navbar.css";
 
-const NavbarApp = ({ cerrarSesion }) => {
+const NavbarApp = ({ cerrarSesion, user }) => {
   return (
     <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
       <div className="container">
@@ -26,18 +26,36 @@ const NavbarApp = ({ cerrarSesion }) => {
           <ul className="navbar-nav">
             <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/">
-                Home
+                <i className="fa fa-home" aria-hidden="true"></i>
+                Inicio
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/about">
-                About
+                <i className="fa fa-users" aria-hidden="true"></i>
+                Sobre nosotros
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/destacados">
+                <i className="fa fa-star" aria-hidden="true"></i>
+                Destacados
+              </NavLink>
+            </li>
+            {user.rol === "ADMIN_ROLE" && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/admin">
+                  <i className="fa fa-cog" aria-hidden="true"></i>
+                  Admin
+                </NavLink>
+              </li>
+            )}
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <NavLink className="nav-link">Cerrar sesión</NavLink>
+              <button className="btn nav-link" onClick={cerrarSesion}>
+                Cerrar sesión
+              </button>
             </li>
           </ul>
         </div>

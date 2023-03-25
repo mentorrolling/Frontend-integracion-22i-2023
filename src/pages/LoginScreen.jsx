@@ -6,7 +6,7 @@ import "../css/login.css";
 
 import MessageApp from "../components/MessageApp";
 
-const LoginScreen = ({ iniciarSesion }) => {
+const LoginScreen = ({ iniciarSesion, guardarUsuario }) => {
   const navigate = useNavigate();
   const [inputCorreo, setInputCorreo] = useState("");
   const [inputPassword, setInputPassword] = useState("");
@@ -23,10 +23,17 @@ const LoginScreen = ({ iniciarSesion }) => {
     };
 
     const resp = await authLogin(datos);
-    // console.log(resp);
+    console.log(resp);
     if (resp?.token) {
       localStorage.setItem("token", JSON.stringify(resp.token));
       iniciarSesion();
+      const { nombre, correo, rol, uid } = resp.usuario;
+      guardarUsuario({
+        nombre,
+        correo,
+        rol,
+        uid,
+      });
       navigate("/");
     }
     setResultado(resp);

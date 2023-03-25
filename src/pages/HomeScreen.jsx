@@ -8,13 +8,14 @@ import "../css/home.css";
 
 const HomeScreen = () => {
   const [categoria, setCategoria] = useState("");
-  const [cursos, setCursos] = useState([]);
+  const [cursos, setCursos] = useState(null);
 
   const categoriaSeleccionada = (categoria) => {
     setCategoria(categoria);
   };
 
   useEffect(() => {
+    setCursos(null);
     traerCursos();
   }, [categoria]);
 
@@ -52,18 +53,27 @@ const HomeScreen = () => {
         <div className="row">
           <div className="col my-3">
             <h3>{categoria ? categoria : "TODAS"}</h3>
-            {cursos.length == 0 && (
+
+            {cursos?.length == 0 && (
               <div className="text-center mt-2">
                 <h4>No hay cursos disponibles para esta categoría 😭</h4>
               </div>
             )}
           </div>
         </div>
-        <div className="row row-cols-1 row-cols-md-3 g-4 ">
-          {cursos.map((curso) => (
-            <CardCurso key={curso._id} curso={curso} />
-          ))}
-        </div>
+        {!cursos ? (
+          <div className="row">
+            <div className="col">
+              <h3 className="text-white">Cargando...</h3>
+            </div>
+          </div>
+        ) : (
+          <div className="row row-cols-1 row-cols-md-3 g-4 pb-3 ">
+            {cursos.map((curso) => (
+              <CardCurso key={curso._id} curso={curso} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

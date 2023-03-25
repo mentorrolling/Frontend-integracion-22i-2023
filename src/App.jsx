@@ -9,6 +9,11 @@ import ErrorScreen from "./pages/ErrorScreen";
 
 function App() {
   const [login, setLogin] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const guardarUsuario = (datos) => {
+    setUser(datos);
+  };
 
   const iniciarSesion = () => {
     setLogin(true);
@@ -25,14 +30,19 @@ function App() {
           path="/*"
           element={
             <ProtectedRoutes login={login}>
-              <RoutesDos cerrarSesion={cerrarSesion} />
+              <RoutesDos cerrarSesion={cerrarSesion} user={user} />
             </ProtectedRoutes>
           }
         />
         <Route path="*" element={<ErrorScreen />} />
         <Route
           path="/login"
-          element={<LoginScreen iniciarSesion={iniciarSesion} />}
+          element={
+            <LoginScreen
+              iniciarSesion={iniciarSesion}
+              guardarUsuario={guardarUsuario}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>
