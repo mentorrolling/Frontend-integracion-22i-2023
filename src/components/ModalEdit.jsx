@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCursoById, actualizarCurso } from "../helpers/cursoApi";
-import { getCategorias } from "../helpers/categoriaApi";
+
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Modal from "react-bootstrap/Modal";
@@ -16,42 +15,22 @@ const ModalEdit = ({ show, handleClose, cid }) => {
   }, []);
 
   const traerDatosDeCurso = async () => {
-    const resp = await getCursoById(cid);
-
-    setCurso(resp.curso);
+    //petición a la API de curso por id
   };
 
   const traerCategorias = async () => {
-    const resp = await getCategorias();
-    setCategorias(resp.categorias);
+    //petición a la API de categorias
   };
 
   const handleChange = (e) => {
-    let valueCheck = false;
-    if (e.target.name === "destacado") {
-      if (e.target.checked) {
-        valueCheck = true;
-      } else {
-        valueCheck = false;
-      }
-      setCurso({
-        ...curso,
-        [e.target.name]: valueCheck,
-      });
-    } else {
-      setCurso({
-        ...curso,
-        [e.target.name]: e.target.value,
-      });
-    }
+    //Manejar el evento change del formulario y guardar los datos en el estado
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await actualizarCurso(curso._id, curso);
-    MySwal.fire("Curso actualizado", "", "success");
-    handleClose();
+    //Ejecutar funcion para actualizar el curso con los datos del estado
+    //cerrar el modal luego de editar
   };
 
   return (

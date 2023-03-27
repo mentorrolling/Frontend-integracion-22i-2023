@@ -1,20 +1,28 @@
 import React, { useState } from "react";
-import { borrarCurso } from "../helpers/cursoApi";
 
+//importar funcion para borrar cursos de la API
+
+//Librería sweet alert
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+
+//import componente de modal para editar
 import ModalEdit from "./ModalEdit";
 
-const TableCursos = ({ cursos }) => {
+const TableCursos = ({ cursos = [] }) => {
   const MySwal = withReactContent(Swal);
 
   //Manejo del modal
   const [show, setShow] = useState(false);
   const [cid, setCid] = useState(null);
+
+  //manejar cierre de modal
   const handleClose = () => {
     setCid(null);
     setShow(false);
   };
+
+  //Manejar apertura de modal
   const handleShow = (id) => {
     setCid(id);
     setShow(true);
@@ -28,12 +36,8 @@ const TableCursos = ({ cursos }) => {
       confirmButtonText: "Si",
       denyButtonText: `No`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        borrarCurso(id).then((resultado) => {
-          console.log(resultado);
-          MySwal.fire("", `${resultado.msg}`, "success");
-        });
+        //ejecutar peticion a la API y devolver mensaje
       } else if (result.isDenied) {
         MySwal.fire("El curso no se inactivó", "", "info");
       }

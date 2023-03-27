@@ -1,49 +1,20 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import ProtectedRoutes from "./routes/ProtectedRoutes";
-import RoutesDos from "./routes/RoutesDos";
-// import "./App.css";
-import LoginScreen from "./pages/LoginScreen";
-import ErrorScreen from "./pages/ErrorScreen";
-
 function App() {
-  const [login, setLogin] = useState(false);
-  const [user, setUser] = useState(null);
+  //Estados para manejar login y datos de usuario
 
-  const guardarUsuario = (datos) => {
-    setUser(datos);
-  };
+  //Función para guardar datos del usuario autenticado
 
-  const iniciarSesion = () => {
-    setLogin(true);
-  };
+  //Función cuando inicia sesión
 
-  const cerrarSesion = () => {
-    setLogin(false);
-  };
+  //Función cuando cierra sesión
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/*"
-          element={
-            <ProtectedRoutes login={login}>
-              <RoutesDos cerrarSesion={cerrarSesion} user={user} />
-            </ProtectedRoutes>
-          }
-        />
-        <Route path="*" element={<ErrorScreen />} />
-        <Route
-          path="/login"
-          element={
-            <LoginScreen
-              iniciarSesion={iniciarSesion}
-              guardarUsuario={guardarUsuario}
-            />
-          }
-        />
+        {/* Rutas protegidas que reciben login, datos de usuario y función cerrar sesión */}
+
+        {/* Ruta de Login que recibe función para iniciar sesión y gusrdar datos de usuario*/}
       </Routes>
     </BrowserRouter>
   );

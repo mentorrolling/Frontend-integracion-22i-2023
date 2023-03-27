@@ -1,43 +1,31 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authLogin } from "../helpers/ApiLogin";
+
+//importar función de autenticación de API
+
 import logo from "../assets/logo.png";
 import "../css/login.css";
 
-import MessageApp from "../components/MessageApp";
+//importar componente para mensaje
 
 const LoginScreen = ({ iniciarSesion, guardarUsuario }) => {
-  const navigate = useNavigate();
-  const [inputCorreo, setInputCorreo] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
+  const navigate = useNavigate(); // defino función para redireccionar
 
-  const [resultado, setResultado] = useState(null);
-  const [loading, setLoading] = useState(false);
+  //Defino estados
+  // EStado para guardar correo y password de los inputs
 
+  //Estado para obtener el mensaje de resultado de la petición
+
+  //Estado para manejar un loading o carga de datos
+
+  //Función del formulario de login:
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const datos = {
-      correo: inputCorreo,
-      password: inputPassword,
-    };
-
-    const resp = await authLogin(datos);
-    console.log(resp);
-    if (resp?.token) {
-      localStorage.setItem("token", JSON.stringify(resp.token));
-      iniciarSesion();
-      const { nombre, correo, rol, uid } = resp.usuario;
-      guardarUsuario({
-        nombre,
-        correo,
-        rol,
-        uid,
-      });
-      navigate("/");
-    }
-    setResultado(resp);
-    setLoading(false);
+    //obtener datos ingresados
+    //hacer petición a la API
+    //guardar token
+    //ejecutar función de iniciar sesión
+    //Guardar datos del usuario
+    //redireccionar
   };
 
   return (
@@ -46,7 +34,7 @@ const LoginScreen = ({ iniciarSesion, guardarUsuario }) => {
         <div className="row px-2">
           <div className="col-12 col-md-4 offset-md-4 card-login">
             <div className="d-flex justify-content-center align-items-center">
-              <img src={logo} alt="logo" />
+              <img src="" alt="logo" />
             </div>
             <h3 className="text-center mt-2">
               <span>
@@ -54,14 +42,14 @@ const LoginScreen = ({ iniciarSesion, guardarUsuario }) => {
               </span>
               Inicio de sesión
             </h3>
-            <form onSubmit={handleLogin}>
+            <form onSubmit="">
               <div className="mt-3">
                 <label className="fw-bold">Correo</label>
                 <input
                   type="email"
                   className="form-control"
-                  value={inputCorreo}
-                  onChange={(e) => setInputCorreo(e.target.value)}
+                  value=""
+                  onChange=""
                 />
               </div>
               <div className="mt-3">
@@ -69,21 +57,17 @@ const LoginScreen = ({ iniciarSesion, guardarUsuario }) => {
                 <input
                   type="password"
                   className="form-control"
-                  value={inputPassword}
-                  onChange={(e) => setInputPassword(e.target.value)}
+                  value=""
+                  onChange=""
                 />
               </div>
               <div className="mt-3 d-grid">
-                <button className="btn btn-dark" disabled={loading && true}>
+                <button className="btn btn-dark" disabled="">
                   Iniciar
                 </button>
               </div>
             </form>
-            {resultado?.msg && (
-              <div className="mt-2">
-                <MessageApp mensaje={resultado.msg} />
-              </div>
-            )}
+            {/*  Mostrar componente de mensaje obtenido en la respuesta de la API */}
           </div>
         </div>
       </div>
