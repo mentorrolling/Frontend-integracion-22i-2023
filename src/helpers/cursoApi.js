@@ -1,5 +1,5 @@
 const url = "http://localhost:8080/api/cursos";
-
+const token = JSON.parse(localStorage.getItem("token"));
 //Traer cursos
 export const getCursos = async () => {
   try {
@@ -14,7 +14,7 @@ export const getCursos = async () => {
 };
 
 //Traer cursos por el id
-export const getCursoById = async (token, id) => {
+export const getCursoById = async (id) => {
   try {
     const resp = await fetch(url + "/" + id, {
       method: "GET",
@@ -55,7 +55,7 @@ export const crearCurso = async (datos) => {
 //Actualizar un curso
 export const actualizarCurso = async (id, datos) => {
   try {
-    const resp = await fetch(url, +"/" + id, {
+    const resp = await fetch(url + "/" + id, {
       method: "PUT",
       body: JSON.stringify(datos),
       headers: {
@@ -76,7 +76,7 @@ export const actualizarCurso = async (id, datos) => {
 //Borrar un curso
 export const borrarCurso = async (id) => {
   try {
-    const resp = await fetch(url, +"/" + id, {
+    const resp = await fetch(url + "/" + id, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
