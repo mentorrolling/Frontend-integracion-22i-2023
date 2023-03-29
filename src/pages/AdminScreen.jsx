@@ -6,7 +6,7 @@ import { getCursos } from "../helpers/cursoApi";
 const AdminScreen = () => {
   const [cursos, setCursos] = useState([]);
   const [totalCursos, setTotalCursos] = useState(0);
-
+  const limite = 6;
   //manejar pagina
   const [pagina, setPagina] = useState(0);
 
@@ -15,7 +15,7 @@ const AdminScreen = () => {
   }, [pagina]);
 
   const traerCursos = async () => {
-    const { cursos, total } = await getCursos(pagina);
+    const { cursos, total } = await getCursos(limite, pagina);
     setCursos(cursos);
     setTotalCursos(total);
   };
