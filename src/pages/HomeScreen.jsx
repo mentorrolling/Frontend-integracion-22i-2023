@@ -5,10 +5,15 @@ import NavCategorias from "../components/NavCategorias";
 import { getCursos } from "../helpers/cursoApi";
 
 import "../css/home.css";
+import PaginationCursos from "../components/PaginationCursos";
 
 const HomeScreen = () => {
   const [categoria, setCategoria] = useState("");
   const [cursos, setCursos] = useState(null);
+
+  //paginacion
+  const [pagina, setPagina] = useState(0);
+  const [totalCursos, setTotalCursos] = useState(0);
 
   const categoriaSeleccionada = (categoria) => {
     setCategoria(categoria);
@@ -20,7 +25,8 @@ const HomeScreen = () => {
   }, [categoria]);
 
   const traerCursos = async () => {
-    const { cursos } = await getCursos();
+    const { cursos, total } = await getCursos(pagina);
+    setTotalCursos(total);
     if (categoria) {
       const cursosFiltrados = cursos.filter((item) => {
         return item.categoria.nombre == categoria;
@@ -74,6 +80,17 @@ const HomeScreen = () => {
             ))}
           </div>
         )}
+        {/* <div className="row">
+          <div className="col">
+            {totalCursos > 0 && (
+              <PaginationCursos
+                total={totalCursos}
+                pagina={pagina}
+                setPagina={setPagina}
+              />
+            )}
+          </div>
+        </div> */}
       </div>
     </div>
   );

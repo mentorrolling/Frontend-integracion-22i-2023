@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
+import PaginationCursos from "../components/PaginationCursos";
 import TableCursos from "../components/TableCursos";
 import { getCursos } from "../helpers/cursoApi";
 
 const AdminScreen = () => {
   const [cursos, setCursos] = useState([]);
+  const [totalCursos, setTotalCursos] = useState(0);
+
+  //manejar pagina
+  const [pagina, setPagina] = useState(0);
 
   useEffect(() => {
     traerCursos();
-  }, [cursos]);
+  }, [pagina]);
 
   const traerCursos = async () => {
-    const { cursos } = await getCursos();
+    const { cursos, total } = await getCursos(pagina);
     setCursos(cursos);
+    setTotalCursos(total);
   };
 
   return (
@@ -30,7 +36,15 @@ const AdminScreen = () => {
         <div className="row">
           <div className="col-12 col-md-8 offset-md-2">
             {cursos.length > 0 ? (
-              <TableCursos cursos={cursos} />
+              <>
+                <h4>Total de cursos: {totalCursos}</h4>
+                <PaginationCursos
+                  pagina={pagina}
+                  setPagina={setPagina}
+                  total={totalCursos}
+                />
+                <TableCursos cursos={cursos} traerCursos={traerCursos} />
+              </>
             ) : (
               <div className="d-flex justify-content-center">
                 <div className="spinner-border" role="status">

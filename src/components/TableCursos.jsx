@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { borrarCurso } from "../helpers/cursoApi";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ModalEdit from "./ModalEdit";
 
-const TableCursos = ({ cursos }) => {
+const TableCursos = ({ cursos, traerCursos }) => {
   const MySwal = withReactContent(Swal);
 
   //Manejo del modal
   const [show, setShow] = useState(false);
   const [cid, setCid] = useState(null);
+
   const handleClose = () => {
     setCid(null);
     setShow(false);
+    traerCursos();
   };
   const handleShow = (id) => {
     setCid(id);
@@ -32,6 +34,7 @@ const TableCursos = ({ cursos }) => {
       if (result.isConfirmed) {
         borrarCurso(id).then((resultado) => {
           console.log(resultado);
+          traerCursos();
           MySwal.fire("", `${resultado.msg}`, "success");
         });
       } else if (result.isDenied) {
@@ -52,6 +55,7 @@ const TableCursos = ({ cursos }) => {
             <th></th>
           </tr>
         </thead>
+
         <tbody>
           {cursos.map((curso) => (
             <tr key={curso._id}>

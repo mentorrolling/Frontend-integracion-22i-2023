@@ -1,9 +1,10 @@
 const url = "http://localhost:8080/api/cursos";
 const token = JSON.parse(localStorage.getItem("token"));
+const limite = 6;
 //Traer cursos
-export const getCursos = async () => {
+export const getCursos = async (pagina = 0) => {
   try {
-    const resp = await fetch(url);
+    const resp = await fetch(url + "?limite=" + limite + "&desde=" + pagina);
     const data = await resp.json();
 
     return data;

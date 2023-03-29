@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { getCategorias } from "../helpers/categoriaApi";
 
 const NavCategorias = ({ categoriaSeleccionada }) => {
-  const [categorias, setCategorias] = useState([]);
-  const token = JSON.parse(localStorage.getItem("token"));
+  const [categorias, setCategorias] = useState(null);
+  // const token = JSON.parse(localStorage.getItem("token"));
 
   useEffect(() => {
     traerCategorias();
   }, []);
 
   const traerCategorias = async () => {
-    const datos = await getCategorias(token);
-    // console.log(datos.categorias);
+    const datos = await getCategorias();
+    console.log(datos.categorias);
     setCategorias(datos.categorias);
   };
 
@@ -31,7 +31,7 @@ const NavCategorias = ({ categoriaSeleccionada }) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNavCate">
-          {categorias.length > 0 && (
+          {categorias && (
             <ul className="navbar-nav">
               <li className="nav-item me-2">
                 <button
