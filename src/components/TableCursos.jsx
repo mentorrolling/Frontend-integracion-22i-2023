@@ -8,7 +8,7 @@ import ModalEdit from "./ModalEdit";
 const TableCursos = ({ cursos, traerCursos }) => {
   const MySwal = withReactContent(Swal);
 
-  //Manejo del modal
+  //Manejo del modal-------------------
   const [show, setShow] = useState(false);
   const [cid, setCid] = useState(null);
 
@@ -21,7 +21,9 @@ const TableCursos = ({ cursos, traerCursos }) => {
     setCid(id);
     setShow(true);
   };
+  //------------------------
 
+  //borrar curso--------------------------------
   const inactivarCurso = async (nombre, id) => {
     MySwal.fire({
       title: `Está seguro que quiere inactivar el curso ${nombre}?`,
@@ -89,7 +91,7 @@ const TableCursos = ({ cursos, traerCursos }) => {
           ))}
         </tbody>
       </table>
-      {cid && <ModalEdit show={show} handleClose={handleClose} cid={cid} />}
+      {show && <ModalEdit show={show} handleClose={handleClose} cid={cid} />}
     </>
   );
 };

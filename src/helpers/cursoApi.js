@@ -1,4 +1,5 @@
 const url = "http://localhost:8080/api/cursos";
+// const token = JSON.parse(localStorage.getItem("token"));
 const token = JSON.parse(localStorage.getItem("token"));
 // const limite = 0;
 //Traer cursos

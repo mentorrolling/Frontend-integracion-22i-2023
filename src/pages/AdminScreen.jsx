@@ -6,8 +6,9 @@ import { getCursos } from "../helpers/cursoApi";
 const AdminScreen = () => {
   const [cursos, setCursos] = useState([]);
   const [totalCursos, setTotalCursos] = useState(0);
-  const limite = 6;
+
   //manejar pagina
+  const limite = 6;
   const [pagina, setPagina] = useState(0);
 
   useEffect(() => {

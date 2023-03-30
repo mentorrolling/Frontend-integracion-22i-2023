@@ -4,7 +4,7 @@ const limite = 6;
 
 export const getCategorias = async (desde = 0) => {
   try {
-    const resp = await fetch(url + "?limite=" + limite + "&" + desde, {
+    const resp = await fetch(url + "?limite=" + limite + "&desde=" + desde, {
       method: "GET",
 
       headers: {
