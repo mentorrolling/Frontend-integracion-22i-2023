@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 //importar funcion para borrar cursos de la API
+import { borrarCurso } from "../helpers/cursoApi";
 
 //Librería sweet alert
 import Swal from "sweetalert2";
@@ -12,7 +13,7 @@ import ModalEdit from "./ModalEdit";
 const TableCursos = ({ cursos = [] }) => {
   const MySwal = withReactContent(Swal);
 
-  //Manejo del modal
+  //Manejo del modal--------------------
   const [show, setShow] = useState(false);
   const [cid, setCid] = useState(null);
 
@@ -28,6 +29,7 @@ const TableCursos = ({ cursos = [] }) => {
     setShow(true);
   };
 
+  //borrrar curso
   const inactivarCurso = async (nombre, id) => {
     MySwal.fire({
       title: `Está seguro que quiere inactivar el curso ${nombre}?`,
@@ -37,7 +39,10 @@ const TableCursos = ({ cursos = [] }) => {
       denyButtonText: `No`,
     }).then((result) => {
       if (result.isConfirmed) {
-        //ejecutar peticion a la API y devolver mensaje
+        borrarCurso(id).then((resultado) => {
+          // console.log(resultado)
+          MySwal.fire("", `${resultado.msg}`, "success");
+        });
       } else if (result.isDenied) {
         MySwal.fire("El curso no se inactivó", "", "info");
       }
@@ -89,7 +94,7 @@ const TableCursos = ({ cursos = [] }) => {
           ))}
         </tbody>
       </table>
-      {cid && <ModalEdit show={show} handleClose={handleClose} cid={cid} />}
+      {show && <ModalEdit show={show} handleClose={handleClose} cid={cid} />}
     </>
   );
 };
