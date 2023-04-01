@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../css/cards.css";
 
 const CardCurso = ({ curso }) => {
@@ -11,12 +12,11 @@ const CardCurso = ({ curso }) => {
         <div className="card-body d-flex flex-column justify-content-between">
           <div className="my-3">
             <h5 className="card-title">{curso.nombre}</h5>
-            <p className="card-text">{curso.descripcion}</p>
           </div>
 
-          <a href="#" className="btn btn-dark">
-            Comprar
-          </a>
+          <Link to={`/curso/${curso._id}`} className="btn btn-dark">
+            Detalles
+          </Link>
         </div>
       </div>
     </div>
